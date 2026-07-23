@@ -47,25 +47,26 @@ def get_weather_for_city(city_name):
     if not lat or not lon:
         return None
 
-    # 3. Query Open-Meteo Weather API
+    # 3. Query Open-Meteo Weather API for temperature, humidity, and windspeed
     try:
         weather_url = "https://api.open-meteo.com/v1/forecast"
         weather_params = {
             'latitude': lat,
             'longitude': lon,
-            'current_weather': True
+            'current': 'temperature_2m,relative_humidity_2m,wind_speed_10m'
         }
         weather_response = requests.get(weather_url, params=weather_params, timeout=5)
         weather_response.raise_for_status()
         weather_data = weather_response.json()
 
-        current_weather = weather_data.get('current_weather', {})
-        if not current_weather:
+        current = weather_data.get('current', {})
+        if not current:
             return None
 
         result = {
-            'temperature': current_weather.get('temperature'),
-            'windspeed': current_weather.get('windspeed')
+            'temperature': current.get('temperature_2m'),
+            'humidity': current.get('relative_humidity_2m'),
+            'windspeed': current.get('wind_speed_10m')
         }
 
         # Cache for 45 minutes (2700 seconds)

@@ -91,6 +91,7 @@
                         {% if contact.weather %}
                             <span class="badge bg-info text-dark weather-badge mt-1">
                                 <i class="bi bi-thermometer-half"></i> {{ contact.weather.temperature }}°C |
+                                <i class="bi bi-droplet"></i> {{ contact.weather.humidity }}% |
                                 <i class="bi bi-wind"></i> {{ contact.weather.windspeed }} km/h
                             </span>
                         {% else %}

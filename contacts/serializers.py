@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Contact, ContactStatusChoices
+from .models import Contact
 
 class ContactSerializer(serializers.ModelSerializer):
     status_name = serializers.CharField(source='status.name', read_only=True)

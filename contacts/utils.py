@@ -8,12 +8,10 @@ def get_weather_for_city(city_name):
     normalized_city = city_name.strip().lower()
     cache_key = f"weather_{normalized_city}"
 
-    # 1. Check Django local memory cache
     cached_weather = cache.get(cache_key)
     if cached_weather:
         return cached_weather
 
-    # 2. Cache miss, query OpenStreetMap Nominatim
     geocoding_url = "https://nominatim.openstreetmap.org/search"
     geo_params = {
         'q': city_name,
@@ -35,7 +33,6 @@ def get_weather_for_city(city_name):
         lat = geo_data[0].get('lat')
         lon = geo_data[0].get('lon')
 
-        # Query Open-Meteo Weather API
         weather_url = "https://api.open-meteo.com/v1/forecast"
         weather_params = {
             'latitude': lat,
@@ -56,9 +53,7 @@ def get_weather_for_city(city_name):
             'windspeed': current_weather.get('windspeed')
         }
 
-        # 3. Store the result in cache for 45 minutes (2700 seconds)
         cache.set(cache_key, result, 2700)
-
         return result
 
     except requests.RequestException:

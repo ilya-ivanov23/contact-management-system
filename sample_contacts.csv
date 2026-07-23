@@ -1,0 +1,4 @@
+first_name,last_name,phone_number,email,city,status
+Jan,Kowalski,+48123456789,jan.kowalski@example.com,Warsaw,New
+Anna,Nowak,+48987654321,anna.nowak@example.com,Krakow,In Progress
+John,Doe,+12025550143,john.doe@example.com,Berlin,Outdated

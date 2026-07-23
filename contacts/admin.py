@@ -1,3 +1,12 @@
 from django.contrib import admin
+from .models import Contact, ContactStatusChoices
 
-# Register your models here.
+@admin.register(ContactStatusChoices)
+class ContactStatusChoicesAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'phone_number', 'email', 'city', 'status', 'created_at')
+    list_filter = ('status', 'city')
+    search_fields = ('first_name', 'last_name', 'email', 'phone_number')
